@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="32x32" href="/sorianalogo.png">
+
+    <title>Sign In Tremec Portal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin" action="#" onsubmit="Login();return false">
+      <img class="mb-4" src="http://www.tremec.com/assets/img/logo1-default.png" alt="" width="180" height="70">
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input type="email" id="inputEmail" name="email" class="form-control" id="email" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only" >Password</label>
+      <input type="password" id="inputPassword" name="password" id="password" class="form-control" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Recuerdame
+        </label>
+      </div>
+      <input type="submit" id="loginbutton" value="Iniciar Sesión" class="btn btn-lg btn-primary btn-block">
+      <a class="mt-5 mb-3 text-muted" href="/SignIn">Solicita tu cuenta aquí</a>
+      <p class="mt-5 mb-3 text-muted">&copy; KUO 2018</p>
+    </form>
+
+
+
+    <!-- modal de confirmación de código -->
+
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Autenticación de Doble Factor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center" id="MensajeModalConfirmacion"> 
+          <p><b>Coloca el número generado en la aplicación de SAP Authenticator</b></p>
+        </div>
+        <div class="text-center"> 
+          <input type="password" name="autenticación">
+        </div>
+        <br>
+        <div>
+        <p class="text-center" id="mis_pedidos_boton"><a class="btn btn-success text-center" href="#" target"_blank" onclick="Authenticator();return false" id="mis_pedidos">Confirmar</a></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+</html>
+
+<script type="text/javascript" src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.js"></script>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="/js/login.js"></script>

@@ -1,0 +1,43 @@
+.parallax-section{
+	margin-top: 50px;
+}
+
+.input{
+	width: 800px !important;
+}
+
+body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}
+
+li{
+	list-style-type: none; 
+}
+
+.logo{
+	margin-right: 200px;
+}
+
+a{
+	text-decoration: none  !important;
+	color: black !important;
+}
+
+#navbar{
+	margin-top: 20px;
+}
+
+#logo{
+	margin-bottom: 5px;
+}
+
+.btn-danger{
+	color:white !important;
+}
+
+.btn-success{
+	color:white !important;
+}

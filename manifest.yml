@@ -1,0 +1,8 @@
+---
+applications:
+- name: Portal
+  memory: 512M
+  instances: 1
+  command: node Portal.js
+  buildpacks: 
+      - nodejs_buildpack
