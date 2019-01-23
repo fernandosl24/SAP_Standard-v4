@@ -1,8 +1,8 @@
 ---
 applications:
-- name: Portal
+- name: MobilePortal
   memory: 512M
   instances: 1
-  command: node Portal.js
+  command: node MobilePortal.js
   buildpacks: 
       - nodejs_buildpack
