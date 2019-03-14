@@ -1,8 +1,9 @@
 ---
 applications:
-- name: MobilePortal
-  memory: 512M
+- name: PortalSAP
+  memory: 128M
+  storage: 128M
   instances: 1
-  command: node MobilePortal.js
+  command: node PortalSAP.js
   buildpacks: 
       - nodejs_buildpack

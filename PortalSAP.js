@@ -3,6 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var o = require('odata');
 var request = require('request');
+var WebSocketClient = require('websocket').client;
+var QRCode = require('qrcode')
 
 app.use(bodyParser.json());
 
@@ -11,10 +13,13 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true})); 
 
+var client = new WebSocketClient();
+var wsconnection;
+
 o().config({
   // format: 'json',
-  username: 'FSANCHEZ', 	// the basic auth username
-  password: 'Welcome2.',
+  username: 'i848070', 	// the basic auth username
+  password: 'Welcome1.',
   isWithCredentials: true
 });
 
@@ -39,20 +44,20 @@ app.post('/CrearPedidoVenta', function(req,res){
 		if(typeof data.d.results[0] == 'undefined'){
 			numero_nuevo = 1;
 		} else {
-		console.log(data.d.results[0].ID_PEDIDO);
+		// console.log(data.d.results[0].ID_PEDIDO);
 		numero_nuevo = Number(data.d.results[0].ID_PEDIDO) + 1;
-		console.log(numero_nuevo);
+		// console.log(numero_nuevo);
 		}
 		url2 = "https://xs01b14ae55f1.us1.hana.ondemand.com/KUO/odata.xsodata/ventas";
 		fecha = new Date(req.body.FECHA)
-		console.log(fecha.getTime());
+		// console.log(fecha.getTime());
 		ts = fecha.getTime();
 		var idpedidofiori = numero_nuevo;
 		var productofiori = req.body.PRODUCTO;
 		var preciofiori = Math.round(Math.random()*100);
 		var cantidadfiori = req.body.CANTIDAD;
 
-		console.log(ts);
+		// console.log(ts);
 			info = {
 				"ID_PEDIDO": numero_nuevo,
 				"USUARIO": req.body.USUARIO,
@@ -63,7 +68,7 @@ app.post('/CrearPedidoVenta', function(req,res){
 				"CANTIDAD": req.body.CANTIDAD,
 				"ESTATUS": req.body.ESTATUS
 			};
-			console.log(info);
+			// console.log(info);
 			o(url2).post(info).save(function(data){
 				var options = {
 				method:'GET',
@@ -76,7 +81,7 @@ app.post('/CrearPedidoVenta', function(req,res){
 				};
 
 				request(options,function(error,response,body){
-					console.log(response.headers['x-csrf-token']);
+					// console.log(response.headers['x-csrf-token']);
 					var options = {
 					method:'POST',
 					  url: 'https://bpmworkflowruntimewfs-i848070trial.hanatrial.ondemand.com/workflow-service/rest/v1/workflow-instances',
@@ -97,13 +102,27 @@ app.post('/CrearPedidoVenta', function(req,res){
 						}
 					};
 
-					console.log(options);
+					// console.log(options);
 
 					request(options,function(error,response,body){
-						console.log(response);
-						console.log(body);
-						console.log("Información agregada satisfactoriamente");
-						res.send({"resultado":"success"});  
+						if(error){
+							console.log(error)
+						} else {
+							console.log(response);
+							console.log(body);
+							console.log("Información agregada satisfactoriamente");
+							QRCode.toDataURL('https://portalsapjs.cfapps.us10.hana.ondemand.com/mispedidos', function (err, url) {
+  							// console.log("QURCODE: " + url)
+  							var mensaje_sms = "Tu pedido de " + productofiori + " de " + cantidadfiori + " unidades, con valor de " + preciofiori + " ha sido enviado para aprobacion\n\r" + "Da seguimiento aqui: https://portalsapjs.cfapps.us10.hana.ondemand.com/mispedidos\r\n" 
+  							var qr_code = "https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fportalsapjs.cfapps.us10.hana.ondemand.com%2Fmispedidos&chs=180x180&choe=UTF-8&chld=L|2"
+							var sms = '{clientId:"clientID",topic:"in/sgw/dev",metadata:false,serviceId:10,inputParams:{dest:"+5215541857013",contents:"'+mensaje_sms+'",type:"httpclient"}}'
+							var qr_code_sms = '{clientId:"clientID",topic:"in/sgw/dev",metadata:false,serviceId:10,inputParams:{dest:"+5215541857013",contents:"'+qr_code+'",type:"httpclient"}}'
+    						wsconnection.send(sms);
+    						wsconnection.send(qr_code_sms);
+							res.send({"resultado":"success"}); 
+							})
+							
+						} 
 					});
 
 				});
@@ -214,6 +233,38 @@ app.post('/EliminarPedidoRecast', function(req, res){
 	    };
 	});
 });
+
+client.on('connectFailed', function(error) {
+    console.log('Connect Error to wss: ' + error.toString());
+});
+
+client.on('open',function(error){
+	client.send("{subscribe: 'out/sgw/SMSFernando'}");
+})
+
+ 
+client.on('connect', function(connection) {
+	wsconnection = connection;
+    console.log('WebSocket Client Connected');
+
+    connection.on('error', function(error) {
+        console.log("Connection Error: " + error.toString());
+    });
+    connection.on('close', function() {
+        console.log('echo-protocol Connection Closed');
+    });
+
+    connection.on('message',function(message){
+    	console.log(message);
+    });
+    function sendMessage(){
+    	var sms = '{clientId:"clientID",topic:"in/sgw/dev",metadata:false,serviceId:10,inputParams:{dest:"+5215541857013",contents:"Hola Fernando",type:"httpclient"}}'
+    	connection.send(sms);
+    };	
+});
+
+ 
+client.connect('wss://mgwws.hana.ondemand.com/endpoints/v1/ws');
 
 app.listen(port, function(req,res){
    console.log("Servidor Corriendo en puerto: " + port); 

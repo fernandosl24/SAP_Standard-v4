@@ -33050,9 +33050,7 @@ function speakBot(t, type) {
 				}),
 				style: o({
 					color: n.complementaryColor,
-					backgroundColor: n.accentColor,
-					width: '150px',
-					height: '50px'
+					backgroundColor: n.accentColor
 				}, r)
 			}, n.expanderLogo && a.default.createElement("img", {
 				className: "RecastAppExpander--logo",
