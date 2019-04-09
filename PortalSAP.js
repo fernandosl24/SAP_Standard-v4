@@ -76,7 +76,7 @@ app.post('/CrearPedidoVenta', function(req,res){
 				  jar: cookieJar,
 				  headers: {
 				  	'X-CSRF-Token': 'Fetch',
-				    'Authorization': 'Basic ZmVybmFuZG8uc2FuY2hlekBzYXAuY29tOlphcGhpciZEZUw0Lg=='
+				    'Authorization': 'Basic aTg0ODA3MDpaYXBoaXImRGVMNS4='
 				  }
 				};
 
@@ -91,7 +91,7 @@ app.post('/CrearPedidoVenta', function(req,res){
 					  },
 					  jar: cookieJar,
 					  json: {
-						  "definitionId": "workflow_fernando",
+						  "definitionId": "workflow_fernando2",
 						  "context": {
 						               "product": productofiori,
 						               "prod_id":idpedidofiori,
@@ -102,7 +102,7 @@ app.post('/CrearPedidoVenta', function(req,res){
 						}
 					};
 
-					// console.log(options);
+					console.log(options);
 
 					request(options,function(error,response,body){
 						if(error){
