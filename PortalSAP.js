@@ -146,7 +146,7 @@ app.post('/EliminarPedido', function(req, res){
 	    url: "https://xs01b14ae55f1.us1.hana.ondemand.com/KUO/odata.xsodata/ventas(" + id_pedido +")",
 	    method: 'DELETE',
 	    auth: {
-	    'user': 'i848070',
+	    'user': 'FSANCHEZ',
 	    'pass': 'Welcome1.'
 		}
 	};
