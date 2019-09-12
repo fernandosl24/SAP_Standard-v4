@@ -18,7 +18,7 @@ var wsconnection;
 
 o().config({
   // format: 'json',
-  username: 'i848070', 	// the basic auth username
+  username: 'FSANCHEZ', 	// the basic auth username
   password: 'Welcome1.',
   isWithCredentials: true
 });
@@ -114,11 +114,11 @@ app.post('/CrearPedidoVenta', function(req,res){
 							QRCode.toDataURL('https://portalsapjs.cfapps.us10.hana.ondemand.com/mispedidos', function (err, url) {
   							// console.log("QURCODE: " + url)
   							var mensaje_sms = "Tu pedido de " + productofiori + " de " + cantidadfiori + " unidades, con valor de " + preciofiori + " ha sido enviado para aprobacion\n\r" + "Da seguimiento aqui: https://portalsapjs.cfapps.us10.hana.ondemand.com/mispedidos\r\n" 
-  							var qr_code = "https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fportalsapjs.cfapps.us10.hana.ondemand.com%2Fmispedidos&chs=180x180&choe=UTF-8&chld=L|2"
+  							// var qr_code = "https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fportalsapjs.cfapps.us10.hana.ondemand.com%2Fmispedidos&chs=180x180&choe=UTF-8&chld=L|2"
 							var sms = '{clientId:"clientID",topic:"in/sgw/dev",metadata:false,serviceId:10,inputParams:{dest:"+5215541857013",contents:"'+mensaje_sms+'",type:"httpclient"}}'
-							var qr_code_sms = '{clientId:"clientID",topic:"in/sgw/dev",metadata:false,serviceId:10,inputParams:{dest:"+5215541857013",contents:"'+qr_code+'",type:"httpclient"}}'
+							// var qr_code_sms = '{clientId:"clientID",topic:"in/sgw/dev",metadata:false,serviceId:10,inputParams:{dest:"+5215541857013",contents:"'+qr_code+'",type:"httpclient"}}'
     						wsconnection.send(sms);
-    						wsconnection.send(qr_code_sms);
+    						// wsconnection.send(qr_code_sms);
 							res.send({"resultado":"success"}); 
 							})
 							
