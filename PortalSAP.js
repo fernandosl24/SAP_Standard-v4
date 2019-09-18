@@ -19,7 +19,7 @@ var wsconnection;
 o().config({
   // format: 'json',
   username: 'FSANCHEZ', 	// the basic auth username
-  password: 'Welcome1.',
+  password: 'Welcome2.',
   isWithCredentials: true
 });
 
@@ -76,17 +76,21 @@ app.post('/CrearPedidoVenta', function(req,res){
 				  jar: cookieJar,
 				  headers: {
 				  	'X-CSRF-Token': 'Fetch',
-				    'Authorization': 'Basic aTg0ODA3MDpaYXBoaXImRGVMNS4='
+				    'Authorization': 'Basic aTg0ODA3MDpaYXBoaXImRGVMMS4='
 				  }
 				};
 
 				request(options,function(error,response,body){
-					// console.log(response.headers['x-csrf-token']);
+					console.log(response.statusCode);
+					console.log(response.headers);
+					console.log("----------------------");
+					console.log(response.headers['x-csrf-token']);
 					var options = {
 					method:'POST',
 					  url: 'https://bpmworkflowruntimewfs-i848070trial.hanatrial.ondemand.com/workflow-service/rest/v1/workflow-instances',
 					  headers: {
 					    'X-CSRF-Token': response.headers['x-csrf-token'],
+					    // 'X-CSRF-Token':'022AE2C479A206986AB9E9FA97C952A7',
 					    'Content-type': 'application/json'
 					  },
 					  jar: cookieJar,
@@ -108,8 +112,9 @@ app.post('/CrearPedidoVenta', function(req,res){
 						if(error){
 							console.log(error)
 						} else {
-							console.log(response);
-							console.log(body);
+							// console.log(options);
+							// console.log(response);
+							// console.log(body);
 							console.log("Información agregada satisfactoriamente");
 							QRCode.toDataURL('https://portalsapjs.cfapps.us10.hana.ondemand.com/mispedidos', function (err, url) {
   							// console.log("QURCODE: " + url)
@@ -147,7 +152,7 @@ app.post('/EliminarPedido', function(req, res){
 	    method: 'DELETE',
 	    auth: {
 	    'user': 'FSANCHEZ',
-	    'pass': 'Welcome1.'
+	    'pass': 'Welcome2.'
 		}
 	};
 
@@ -212,15 +217,15 @@ app.post('/EliminarPedidoRecast', function(req, res){
 	    method: 'DELETE',
 	    auth: {
 	    'user': 'FSANCHEZ',
-	    'pass': 'Welcome1.'
+	    'pass': 'Welcome2.'
 		}
 	};
 
-	console.log(options.url);
+	// console.log(options.url);
 
 	request(options, function (error, response, body) {
 	    if (!error && response.statusCode == 204) {
-	        console.log("El status de respuesta de eliminar es: " + response.statusCode);
+	        // console.log("El status de respuesta de eliminar es: " + response.statusCode);
 	        res.send({
 		    replies: [{
 		      type: 'text',
@@ -228,7 +233,7 @@ app.post('/EliminarPedidoRecast', function(req, res){
 		    }]
 		  }); 
 	    } else {
-	    	console.log("El error de respuesta de eliminar es: " + error);
+	    	// console.log("El error de respuesta de eliminar es: " + error);
 	    	res.send({"resultado":"fail"}); 
 	    };
 	});
