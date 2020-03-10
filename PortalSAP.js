@@ -19,7 +19,7 @@ var wsconnection;
 o().config({
   // format: 'json',
   username: 'FSANCHEZ', 	// the basic auth username
-  password: 'Welcome2.',
+  password: 'Welcome1.',
   isWithCredentials: true
 });
 
@@ -30,6 +30,11 @@ app.get('/', function(req, res) {
 app.get('/bienvenido',function(req,res){
 	res.render('bienvenido');
 });
+
+app.get('/innovasport',function(req,res){
+	res.render('innovahome');
+});
+
 
 // app.get('/home_tremec',function(req,res){
 // 	res.render('home_tremec');
@@ -76,7 +81,7 @@ app.post('/CrearPedidoVenta', function(req,res){
 				  jar: cookieJar,
 				  headers: {
 				  	'X-CSRF-Token': 'Fetch',
-				    'Authorization': 'Basic aTg0ODA3MDpaYXBoaXImRGVMMS4='
+				    'Authorization': 'Basic aTg0ODA3MDpaYXBoaXImRGVMOS4='
 				  }
 				};
 
@@ -152,7 +157,7 @@ app.post('/EliminarPedido', function(req, res){
 	    method: 'DELETE',
 	    auth: {
 	    'user': 'FSANCHEZ',
-	    'pass': 'Welcome2.'
+	    'pass': 'Welcome1.'
 		}
 	};
 
@@ -217,7 +222,7 @@ app.post('/EliminarPedidoRecast', function(req, res){
 	    method: 'DELETE',
 	    auth: {
 	    'user': 'FSANCHEZ',
-	    'pass': 'Welcome2.'
+	    'pass': 'Welcome1.'
 		}
 	};
 
