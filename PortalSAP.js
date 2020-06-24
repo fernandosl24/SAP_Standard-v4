@@ -19,7 +19,7 @@ var wsconnection;
 o().config({
   // format: 'json',
   username: 'FSANCHEZ', 	// the basic auth username
-  password: 'Welcome1.',
+  password: 'Welcome2.',
   isWithCredentials: true
 });
 
@@ -157,7 +157,7 @@ app.post('/EliminarPedido', function(req, res){
 	    method: 'DELETE',
 	    auth: {
 	    'user': 'FSANCHEZ',
-	    'pass': 'Welcome1.'
+	    'pass': 'Welcome2.'
 		}
 	};
 
@@ -222,7 +222,7 @@ app.post('/EliminarPedidoRecast', function(req, res){
 	    method: 'DELETE',
 	    auth: {
 	    'user': 'FSANCHEZ',
-	    'pass': 'Welcome1.'
+	    'pass': 'Welcome2.'
 		}
 	};
 
